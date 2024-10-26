@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Permintaan Maaf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(207, 29, 118);
+        }
+        
+        .card {
+            background-color: #eb70ad;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+        
+        .card h1 {
+            color: #fcfcfc;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #fad8d8;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        #forgiveBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #noForgiveBtn {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Maaf ya!</h1>
+        <p>Maafin yaa soal waktu itu aku bener bener kecewa, aku kecewa banget sama kamu soalnya gk mau aku wawancara. padahal wawancaranya juga cuman dari WA terus dokumentasinya juga bentar doang asal ada foto, tapi ternyata kamu gk mau, dengan alasan
+            kamu malu. aku gk tau kamu malu apa cuman yaa aku kecewa lah sama kamu waktu itu. sekali lagi maaf yaa. kamu bebas kok mau maafin aku atau nggk</p>
+        <p>jadii, kamu mau maafin aku gk? oiya maaf juga aku cuman bisa minta maaf lewat sini yaa</p>
+        <div class="buttons">
+            <button id="forgiveBtn" onclick="goToWhatsApp()">iyaa dimaafin</button>
+            <button id="noForgiveBtn" onclick="moveButton()">nggk mau di maafin</button>
+        </div>
+    </div>
+
+    <script>
+        let leftForWhatsApp = false;
+
+        function goToWhatsApp() {
+            // Tandai bahwa pengguna akan pergi ke WhatsApp
+            leftForWhatsApp = true;
+            window.location.href = "https://wa.me/6281234567890?text=Terima%20kasih%20udah%20maafin%20aku!";
+        }
+
+        function moveButton() {
+            const button = document.getElementById("noForgiveBtn");
+            const card = document.querySelector(".card");
+            const cardRect = card.getBoundingClientRect();
+
+            const maxX = cardRect.width - button.offsetWidth;
+            const maxY = cardRect.height - button.offsetHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            button.style.position = "absolute";
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+
+        // Deteksi ketika pengguna kembali ke halaman setelah meninggalkannya
+        window.addEventListener("focus", function() {
+            if (leftForWhatsApp) {
+                alert("jadii kamu gk mau maafin aku. okk lah kalo begitu");
+                leftForWhatsApp = false; // Reset agar pesan hanya muncul sekali
+            }
+        });
+    </script>
+
+</body>
+
+</html>
